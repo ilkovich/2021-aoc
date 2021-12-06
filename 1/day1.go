@@ -14,8 +14,6 @@ func handle(err error) {
 }
 
 func RunA() {
-	var err error
-
 	data, err := utils.ReadFile("./1/data.txt")
 	handle(err)
 

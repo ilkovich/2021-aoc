@@ -1,12 +1,14 @@
 package main
 
 import (
-	day2 "2021-aoc/2"
+	day3 "2021-aoc/3"
 )
 
 func main() {
 	// day1.RunA()
 	// day1.RunB()
-	day2.RunA()
-	day2.RunB()
+	// day2.RunA()
+	// day2.RunB()
+	// day3.RunA()
+	day3.RunB()
 }

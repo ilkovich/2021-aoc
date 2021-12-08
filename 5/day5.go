@@ -3,12 +3,13 @@ package day5
 import (
 	"2021-aoc/utils"
 	"fmt"
-	"sort"
 	"strconv"
 	"strings"
 )
 
 const SIZE = 1000
+
+// const SIZE = 10
 
 func handle(err error) {
 	if err != nil {
@@ -20,9 +21,19 @@ type Board struct {
 	squares [SIZE][SIZE]int
 }
 
-func RunA() {
-	board := read()
+func RunB() {
+	board := read(false)
 
+	print(board)
+}
+
+func RunA() {
+	board := read(true)
+
+	print(board)
+}
+
+func print(board Board) {
 	count := 0
 	for k := 0; k < SIZE; k++ {
 		for j := 0; j < SIZE; j++ {
@@ -35,7 +46,7 @@ func RunA() {
 	fmt.Println("count: ", count)
 }
 
-func read() Board {
+func read(skipDiags bool) Board {
 	var err error
 
 	data, err := utils.ReadFile("./5/data.txt")
@@ -53,31 +64,53 @@ func read() Board {
 			getCoords(end),
 		}
 
-		sort.SliceStable(coordsArray[:], func(x, y int) bool {
-			p1 := coordsArray[x]
-			p2 := coordsArray[y]
-
-			if p1[0] == p2[0] {
-				return p1[1] < p2[1]
-			} else {
-				return p1[0] < p2[0]
-			}
-		})
-
 		x1, y1 := coordsArray[0][0], coordsArray[0][1]
 		x2, y2 := coordsArray[1][0], coordsArray[1][1]
 
-		fmt.Println(x1, y1, x2, y2)
+		var xinc func(i int) int
+		var yinc func(i int) int
 
-		if x1 != x2 && y1 != y2 {
-			continue
-		}
-
-		for i := x1; i <= x2; i++ {
-			for j := y1; j <= y2; j++ {
-				board.squares[j][i]++
+		if x1 > x2 {
+			xinc = func(i int) int {
+				return i - 1
+			}
+		} else {
+			xinc = func(i int) int {
+				return i + 1
 			}
 		}
+
+		if y1 > y2 {
+			yinc = func(i int) int {
+				return i - 1
+			}
+		} else {
+			yinc = func(i int) int {
+				return i + 1
+			}
+		}
+
+		// fmt.Println(x1, y1, x2, y2)
+
+		if x1 != x2 && y1 != y2 {
+			if skipDiags {
+				continue
+			}
+
+			for i, j := x1, y1; i != xinc(x2) && j != yinc(y2); i, j = xinc(i), yinc(j) {
+				board.squares[j][i]++
+			}
+		} else {
+			for i := x1; i != xinc(x2); i = xinc(i) {
+				for j := y1; j != yinc(y2); j = yinc(j) {
+					board.squares[j][i]++
+				}
+			}
+		}
+
+		// for i := 0; i < SIZE; i++ {
+		// 	fmt.Println(board.squares[i])
+		// }
 	}
 
 	return board

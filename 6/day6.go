@@ -14,10 +14,11 @@ func handle(err error) {
 }
 
 func Run() {
-	runB()
+	// RunA()
+	RunB()
 }
 
-func runB() {
+func RunB() {
 	timers := read()
 	days := 256
 	vals := make(map[int]int, 8)
@@ -52,7 +53,7 @@ func runB() {
 	fmt.Println("Sum: ", sum)
 }
 
-func runA() {
+func RunA() {
 	timers := read()
 	days := 24
 

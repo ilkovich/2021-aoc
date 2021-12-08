@@ -13,19 +13,54 @@ func handle(err error) {
 	}
 }
 
-func RunB() {
+func Run() {
+	runB()
 }
 
-func RunA() {
-	timers := read(true)
+func runB() {
+	timers := read()
 	days := 256
+	vals := make(map[int]int, 8)
+	newVals := make(map[int]int, 8)
+
+	// initialize
+	for _, timer := range timers {
+		vals[timer]++
+	}
+
+	for i := 0; i < days; i++ {
+		newVals[8] = vals[0]
+		newVals[7] = vals[8]
+		newVals[6] = vals[0] + vals[7]
+		newVals[5] = vals[6]
+		newVals[4] = vals[5]
+		newVals[3] = vals[4]
+		newVals[2] = vals[3]
+		newVals[1] = vals[2]
+		newVals[0] = vals[1]
+
+		// fmt.Println(vals, " -> ", newVals)
+		vals = newVals
+		newVals = make(map[int]int, 8)
+	}
+
+	sum := 0
+	for i := 0; i <= 8; i++ {
+		sum += vals[i]
+	}
+
+	fmt.Println("Sum: ", sum)
+}
+
+func runA() {
+	timers := read()
+	days := 24
 
 	for i := 0; i < days; i++ {
 		timers = step(timers)
-		fmt.Println(i)
+		fmt.Println(i, timers)
 	}
 
-	fmt.Println(len(timers))
 }
 
 func step(timers []int) []int {
@@ -41,7 +76,7 @@ func step(timers []int) []int {
 	return timers
 }
 
-func read(skipDiags bool) []int {
+func read() []int {
 	var err error
 
 	data, err := utils.ReadFile("./6/data.txt")

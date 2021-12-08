@@ -15,5 +15,6 @@ func main() {
 	// day4.RunB()
 	// day5.RunA()
 	// day5.RunB()
-	day6.RunA()
+	// day6.RunA()
+	day6.Run()
 }

@@ -1,8 +1,12 @@
 package main
 
 import (
-	day9 "2021-aoc/9"
+	day11 "2021-aoc/11"
 )
+
+type Test struct {
+	a int
+}
 
 func main() {
 	// day1.RunA()
@@ -19,5 +23,7 @@ func main() {
 	// day6.Run()
 	// day7.Run()
 	// day8.Run()
-	day9.Run()
+	// day9.Run()
+	// day10.Run()
+	day11.Run()
 }

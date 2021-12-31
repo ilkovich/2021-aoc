@@ -22,6 +22,21 @@ func ReadFile(filename string) (string, error) {
 	return text, nil
 }
 
+func Max(arr []int) (int, int) {
+	var ptr *int
+	var pos int
+
+	for i, val := range arr {
+		if ptr == nil || *ptr < val {
+			nextVal := val
+			ptr = &nextVal
+			pos = i
+		}
+	}
+
+	return *ptr, pos
+}
+
 func Min(arr []int) (int, int) {
 	var ptr *int
 	var pos int
